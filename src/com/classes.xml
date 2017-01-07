@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ClassesDaoInterface">
+
+	<resultMap type="classes" id="classesMap">
+		<id column="CLASSID" property="classId" typeHandler="com.dao.StringTypeHandler" />
+		<result column="CLASSNAME" property="className" />
+		<result column="PRESON_NUMBER" property="personNumble" />
+		<result column="Grade" property="grade"
+			typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler" />
+	</resultMap>
+
+	<select id="getClasses" parameterType="String" resultMap="classesMap">
+		select
+		* from classes where CLASSID = #{id}
+	</select>
+
+	<!--<select id="getClasses" parameterType="String" resultType="Classes"> 
+		select * from classes where CLASSNAME = #{className javaType=String jdbcType=VARCHAR 
+		typeHandler=com.dao.StringTypeHandler} </select> -->
+
+	<delete id="deleteClasses" parameterType="String">
+		delete from
+		classes
+		where CLASSID = #{id}
+	</delete>
+	<insert id="insertClassesByPOJO" parameterType="Classes">
+		insert into
+		classes
+		(CLASSID,CLASSNAME,PRESON_NUMBER,Grade) values
+		(#{classId},#{className},#{personNumble},#{grade,  typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler})
+	</insert>
+	
+		<insert id="insertClassesByMap" parameterType="map">
+		insert into
+		classes
+		(CLASSID,CLASSNAME,PRESON_NUMBER,Grade) values
+		(#{classId},#{className},#{personNumble},#{grade,  typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler})
+	</insert>
+	
+</mapper>
